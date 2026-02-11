@@ -13,7 +13,7 @@ app.use(userRouter)
 
 dbConnections()
 app.get('/', (req, res) =>
-     res.send('Hello tasks!')
+     res.json({message:"hello Tasks from mahmoud"})
 
 )
 app.listen( process.env.PORT|| port, () => console.log(`Example app listening on port ${port}!`))
