@@ -7,6 +7,15 @@ dotenv.config()
 const app = express()
 const port = 3000
 app.use(express.json())
+import cors from 'cors'
+
+app.use(cors({
+  origin: 'https://taskts.vercel.app/', // رابط الفروينت اند الخاص بك
+  methods: ['GET','POST','PUT','DELETE'],
+  credentials: true
+}));
+
+
 
 app.use(taskRouter)
 app.use(userRouter)
