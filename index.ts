@@ -10,7 +10,7 @@ app.use(express.json())
 import cors from 'cors'
 
 app.use(cors({
-  origin: 'taskts.vercel.app/', // رابط الفروينت اند الخاص بك
+  origin: 'http://localhost:5173', // رابط الفروينت اند الخاص بك
   methods: ['GET','POST','PUT','DELETE'],
   credentials: true
 }));
