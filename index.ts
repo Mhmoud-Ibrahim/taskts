@@ -14,7 +14,6 @@ app.use(cookieParser());
 app.use(cors({
   origin: 'http://localhost:5173', // رابط الفروينت اند الخاص بك
   methods: ['GET','POST','PUT','DELETE'],
-  credentials: trueو
   credentials: true // ضروري للسماح بالكوكيز
 }));
 
