@@ -22,11 +22,8 @@ const signin = async(req:any,res:any)=>{
     let isMatch = bcrypt.compareSync(password,user.password)
     if(!isMatch) return res.json({message:"invalid password"})
     let token = jwt.sign({userId:user._id},process.env.JWT_KEY as string,{expiresIn:'3h'})
-    res.session.isLoggedIn = true,
-    res.session.uerId = user._id,
-    res.session.name = user.name,
-    res.session.token = token
-   return res.json({message:"success",token})
+   
+   return res.json({message:"success"},{ loggedIn: true, user: req.session.user, token })
     
 }
 
