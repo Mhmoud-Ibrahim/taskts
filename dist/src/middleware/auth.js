@@ -1,5 +1,4 @@
 import jwt, {} from 'jsonwebtoken';
-import { log } from 'node:console';
 export const auth = (req, res, next) => {
     try {
         let { token } = req.headers;
@@ -11,7 +10,8 @@ export const auth = (req, res, next) => {
         return next();
     }
     catch (error) {
-        res.status(401).send({ error: 'Invalid Token' });
+        res.clearCookie('token');
+        return res.status(401).send("توكن غير صالح");
     }
 };
 //# sourceMappingURL=auth.js.map

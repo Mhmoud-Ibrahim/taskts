@@ -20,7 +20,7 @@ app.use(cors({
 const MongoDBStore = mongoSession(session)
 
 let store = new MongoDBStore({
-    uri:`https://taskts.vercel.app/`,
+    uri:process.env.MONGO_URL as string,
     collection:'sessions'
 })
 store.on('error', (error: any) => {

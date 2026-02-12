@@ -24,6 +24,13 @@ const signin = async (req, res) => {
     if (!isMatch)
         return res.json({ message: "invalid password" });
     let token = jwt.sign({ userId: user._id }, process.env.JWT_KEY, { expiresIn: '3h' });
+    if (token)
+        res.cookie('token', token, {
+            httpOnly: true, // لا يمكن الوصول له عبر JavaScript (حماية من XSS)
+            secure: true, // يعمل فقط مع HTTPS (Vercel توفر هذا تلقائياً)
+            sameSite: 'none', // ضروري إذا كان الفرونت والباك على دومين مختلف
+            maxAge: 3600000 // مدة الصلاحية ساعة واحدة
+        });
     return res.json({ message: "success", token });
 };
 export { signup, signin };
