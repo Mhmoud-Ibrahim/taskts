@@ -1,3 +1,4 @@
+import mongoSession  from 'connect-mongodb-session';
 import express from 'express'
 import { dbConnections } from './database/dbConnections.js'
 import taskRouter from './src/modules/tasks/tasks.routes.js'
@@ -8,15 +9,29 @@ const app = express()
 const port = 3000
 app.use(express.json())
 import cors from 'cors'
-import cookieParser from 'cookie-parser';
+import session from 'express-session'
 
-app.use(cookieParser());
 app.use(cors({
   origin: 'http://localhost:5173', // رابط الفروينت اند الخاص بك
   methods: ['GET','POST','PUT','DELETE'],
   credentials: true // ضروري للسماح بالكوكيز
 }));
 
+const MongoDBStore = mongoSession(session)
+
+let store = new MongoDBStore({
+    uri:`https://taskts.vercel.app/`,
+    collection:'sessions'
+})
+store.on('error', (error: any) => {
+  console.error('Session Store Error:', error);
+});
+app.use(session({
+    secret:'mahmooud',
+    saveUninitialized:true,
+    resave:false,
+    store  
+}))
 
 
 app.use(taskRouter)
