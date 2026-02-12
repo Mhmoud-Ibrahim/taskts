@@ -8,11 +8,14 @@ const app = express()
 const port = 3000
 app.use(express.json())
 import cors from 'cors'
+import cookieParser from 'cookie-parser';
 
+app.use(cookieParser());
 app.use(cors({
   origin: 'http://localhost:5173', // رابط الفروينت اند الخاص بك
   methods: ['GET','POST','PUT','DELETE'],
-  credentials: true
+  credentials: trueو
+  credentials: true // ضروري للسماح بالكوكيز
 }));
 
 

@@ -2,7 +2,6 @@
 
 import type { NextFunction, Request, Response } from 'express';
 import jwt, { type JwtPayload } from 'jsonwebtoken';
-import { log } from 'node:console';
 
 interface MyTokenPayload extends JwtPayload {
   userId: string;
