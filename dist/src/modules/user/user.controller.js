@@ -27,8 +27,8 @@ const signin = async (req, res) => {
     req.session.user = {
         userId: user._id,
         isLoggedIn: true,
-        name: user.name,
         email: user.email,
+        name: user.name,
         token
     };
     return res.json({ message: "success" });
