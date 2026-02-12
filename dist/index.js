@@ -27,7 +27,13 @@ app.use(session({
     secret: 'mahmooud',
     saveUninitialized: true,
     resave: false,
-    store
+    store,
+    cookie: {
+        secure: false, // اجعله false طالما لا تستخدم https
+        httpOnly: true,
+        maxAge: 1000 * 60 * 60 * 24,
+        sameSite: 'lax' // مهم جداً للمتصفحات الحديثة في البيئة المحلية
+    }
 }));
 app.use(taskRouter);
 app.use(userRouter);
