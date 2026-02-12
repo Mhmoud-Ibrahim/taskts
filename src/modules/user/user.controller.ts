@@ -28,7 +28,7 @@ const signin = async(req:any,res:any)=>{
     sameSite: 'none',   // ضروري إذا كان الفرونت والباك على دومين مختلف
     maxAge: 3600000     // مدة الصلاحية ساعة واحدة
   }) 
-   return res.json({message:"success"})
+   return res.json({message:"success",token})
     
 }
 
