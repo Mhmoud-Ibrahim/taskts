@@ -15,7 +15,8 @@ export const auth = (req: Request, res: Response, next: NextFunction) => {
         return next();
     
     } catch (error) {
-    res.status(401).send({ error: 'Invalid Token' });
+    res.clearCookie('token');
+    return res.status(401).send("توكن غير صالح");
     }
 
 };
