@@ -3,17 +3,13 @@ export declare const User: mongoose.Model<{
     name: string;
     email: string;
     password: string;
-} & mongoose.DefaultTimestampProps, {}, {}, {
-    id: string;
-}, mongoose.Document<unknown, {}, {
+} & mongoose.DefaultTimestampProps, {}, {}, {}, mongoose.Document<unknown, {}, {
     name: string;
     email: string;
     password: string;
-} & mongoose.DefaultTimestampProps, {
-    id: string;
-}, {
+} & mongoose.DefaultTimestampProps, {}, {
     timestamps: true;
-}> & Omit<{
+}> & {
     name: string;
     email: string;
     password: string;
@@ -21,73 +17,25 @@ export declare const User: mongoose.Model<{
     _id: mongoose.Types.ObjectId;
 } & {
     __v: number;
-}, "id"> & {
-    id: string;
-}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any, any>, {}, {}, {}, {}, {
+}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, {
     timestamps: true;
 }, {
     name: string;
     email: string;
     password: string;
-} & mongoose.DefaultTimestampProps, mongoose.Document<unknown, {}, {
+} & mongoose.DefaultTimestampProps, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
     name: string;
     email: string;
     password: string;
-} & mongoose.DefaultTimestampProps, {
-    id: string;
-}, mongoose.ResolveSchemaOptions<{
+} & mongoose.DefaultTimestampProps>, {}, mongoose.MergeType<mongoose.DefaultSchemaOptions, {
     timestamps: true;
-}>> & Omit<{
+}>> & mongoose.FlatRecord<{
     name: string;
     email: string;
     password: string;
-} & mongoose.DefaultTimestampProps & {
+} & mongoose.DefaultTimestampProps> & {
     _id: mongoose.Types.ObjectId;
 } & {
     __v: number;
-}, "id"> & {
-    id: string;
-}, {
-    [path: string]: mongoose.SchemaDefinitionProperty<undefined, any, any>;
-} | {
-    [x: string]: mongoose.SchemaDefinitionProperty<any, any, mongoose.Document<unknown, {}, {
-        name: string;
-        email: string;
-        password: string;
-    } & mongoose.DefaultTimestampProps, {
-        id: string;
-    }, mongoose.ResolveSchemaOptions<{
-        timestamps: true;
-    }>> & Omit<{
-        name: string;
-        email: string;
-        password: string;
-    } & mongoose.DefaultTimestampProps & {
-        _id: mongoose.Types.ObjectId;
-    } & {
-        __v: number;
-    }, "id"> & {
-        id: string;
-    }> | undefined;
-}, {
-    name: string;
-    email: string;
-    password: string;
-    createdAt: NativeDate;
-    updatedAt: NativeDate;
-} & {
-    _id: mongoose.Types.ObjectId;
-} & {
-    __v: number;
-}>, {
-    name: string;
-    email: string;
-    password: string;
-    createdAt: NativeDate;
-    updatedAt: NativeDate;
-} & {
-    _id: mongoose.Types.ObjectId;
-} & {
-    __v: number;
-}>;
+}>>;
 //# sourceMappingURL=user.model.d.ts.map

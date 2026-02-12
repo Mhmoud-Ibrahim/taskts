@@ -25,11 +25,11 @@ const signin = async (req, res) => {
         return res.json({ message: "invalid password" });
     let token = jwt.sign({ userId: user._id }, process.env.JWT_KEY, { expiresIn: '3h' });
     req.session.user = {
-        id: user._id,
+        userId: user._id,
         isLoggedIn: true,
         token
     };
-    return res.json({ message: "success" });
+    return res.json({ message: "success", user, token });
 };
 export { signup, signin };
 //# sourceMappingURL=user.controller.js.map
