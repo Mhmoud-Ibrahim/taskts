@@ -38,7 +38,7 @@ const senduser = async (req, res) => {
         res.json({ user: req.session.user });
     }
     else {
-        res.status(401).json({ message: "Unauthorized" });
+        res.status(401).json({ message: " you are Unauthorized" });
     }
 };
 export { signup, signin, senduser };

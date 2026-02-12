@@ -40,7 +40,7 @@ const senduser=async(req:any,res:any)=>{
 if(req.session && req.session.user){
     res.json({ user: req.session.user });
 }else {
-    res.status(401).json({ message: "Unauthorized" });
+    res.status(401).json({ message: " you are Unauthorized" });
   }
 }
 
