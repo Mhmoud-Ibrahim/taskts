@@ -27,7 +27,7 @@ const signin = async(req:any,res:any)=>{
     isLoggedIn:true,
     token
     };
-   return res.json({message:"success",user,token})
+   return res.json({message:"success"})
     
 }
 

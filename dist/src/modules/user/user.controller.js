@@ -29,7 +29,7 @@ const signin = async (req, res) => {
         isLoggedIn: true,
         token
     };
-    return res.json({ message: "success", user, token });
+    return res.json({ message: "success" });
 };
 export { signup, signin };
 //# sourceMappingURL=user.controller.js.map
