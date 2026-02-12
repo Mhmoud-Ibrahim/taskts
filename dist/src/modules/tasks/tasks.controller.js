@@ -17,7 +17,7 @@ const gettasks = async (req, res) => {
         const tasks = await Task.find({ user: userId });
         if (!tasks || tasks.length === 0)
             res.json({ message: "there are no tasks yet" });
-        res.json({ tasks: [] });
+        res.json(tasks);
     }
     catch (error) {
         res.status(500).json({ message: "server error", error });
