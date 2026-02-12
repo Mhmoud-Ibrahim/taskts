@@ -16,12 +16,11 @@ const addTask=async (req:any,res:any)=>{
 
 const gettasks= async (req:any,res:any)=>{
 try {
-    const userId = (req as any).user; 
+    const userId = req.session.user?.id;
     const tasks =await  Task.find({user:userId})
-    if(!tasks ||tasks.length===0) return res.json({message:"tasks not found"})
-    if(req.session.isLoggedIn){
-        res.status(200).json({message:"success",tasks,user:req.session.user,isLoggedIn:true}) 
-    }
+    if(!tasks ||tasks.length===0)  res.json({message:"there are no tasks yet"})
+
+    res.json({ tasks: [] });
     
 } catch (error) {
     res.status(500).json({message:"server error",error})

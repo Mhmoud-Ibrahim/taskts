@@ -36,17 +36,10 @@ const signin = async(req:any,res:any)=>{
 
 
 
-const senduser=async(req:any,res:any)=>{
-if(req.session && req.session.user){
-    res.json({message: "success5", user: req.session.user });
-}else {
-    res.status(401).json({ message: " you are Unauthorized" });
-  }
-}
+
 
 
 export  {
     signup,
-    signin,
-    senduser
+    signin
 }

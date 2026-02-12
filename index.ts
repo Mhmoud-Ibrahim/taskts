@@ -10,7 +10,7 @@ const port = 3000
 app.use(express.json())
 import cors from 'cors'
 import session from 'express-session'
-
+import 'express-session';
 app.use(cors({
   origin: 'http://localhost:5173', // رابط الفروينت اند الخاص بك
   methods: ['GET','POST','PUT','DELETE'],
@@ -38,6 +38,19 @@ app.use(session({
     sameSite: 'lax' // مهم جداً للمتصفحات الحديثة في البيئة المحلية
   } 
 }))
+
+
+
+declare module 'express-session' {
+  interface SessionData {
+    user: {
+      userId: string;
+      name: string;
+      email: string;
+      password:string
+    };
+  }
+}
 
 
 app.use(taskRouter)

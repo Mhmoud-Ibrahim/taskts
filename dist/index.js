@@ -10,6 +10,7 @@ const port = 3000;
 app.use(express.json());
 import cors from 'cors';
 import session from 'express-session';
+import 'express-session';
 app.use(cors({
     origin: 'http://localhost:5173', // رابط الفروينت اند الخاص بك
     methods: ['GET', 'POST', 'PUT', 'DELETE'],

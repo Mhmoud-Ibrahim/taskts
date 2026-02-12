@@ -1,17 +1,9 @@
-import jwt, {} from 'jsonwebtoken';
-export const auth = (req, res, next) => {
-    try {
-        let { token } = req.headers;
-        if (!token)
-            return res.status(401).json({ message: 'no token provided.' });
-        const decoded = jwt.verify(token, process.env.JWT_KEY);
-        ;
-        req.user = decoded.userId;
+const auth = (req, res, next) => {
+    // express-session تبحث تلقائياً في MongoDB عن السيشن المطابقة للكوكي المرسلة
+    if (req.session && req.session) {
+        // إذا وجد المستخدم، نمرر الطلب للـ Route التالي
         return next();
     }
-    catch (error) {
-        res.clearCookie('token');
-        return res.status(401).send("توكن غير صالح");
-    }
 };
+export default auth;
 //# sourceMappingURL=auth.js.map
