@@ -20,7 +20,7 @@ try {
     const tasks =await  Task.find({user:userId})
     if(!tasks ||tasks.length===0) return res.json({message:"tasks not found"})
     if(req.session.isLoggedIn){
-        res.status(200).json({message:"success",tasks}) 
+        res.status(200).json({message:"success",tasks,user:req.session.user,isLoggedIn:true}) 
     }
     
 } catch (error) {
