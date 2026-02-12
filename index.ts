@@ -21,7 +21,7 @@ const MongoDBStore = mongoSession(session)
 
 let store = new MongoDBStore({
     uri:process.env.MONGO_URL as string,
-    collection:'sessions'
+    collection:'tasksSessions'
 })
 store.on('error', (error: any) => {
   console.error('Session Store Error:', error);

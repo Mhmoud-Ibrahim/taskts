@@ -18,7 +18,7 @@ app.use(cors({
 const MongoDBStore = mongoSession(session);
 let store = new MongoDBStore({
     uri: process.env.MONGO_URL,
-    collection: 'sessions'
+    collection: 'tasksSessions'
 });
 store.on('error', (error) => {
     console.error('Session Store Error:', error);
