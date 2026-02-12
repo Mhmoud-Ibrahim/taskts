@@ -17,7 +17,9 @@ const gettasks = async (req, res) => {
         const tasks = await Task.find({ user: userId });
         if (!tasks || tasks.length === 0)
             return res.json({ message: "tasks not found" });
-        res.status(200).json({ message: "success", tasks });
+        if (req.session.isLoggedIn) {
+            res.status(200).json({ message: "success", tasks });
+        }
     }
     catch (error) {
         res.status(500).json({ message: "server error", error });
