@@ -1,3 +1,4 @@
+
 import Jwt from 'jsonwebtoken'
 import jwt from 'jsonwebtoken';
 import { User } from '../../../database/models/user.model.js'
@@ -35,8 +36,17 @@ const signin = async(req:any,res:any)=>{
 
 
 
+const senduser=async(req:any,res:any)=>{
+if(req.session && req.session.user){
+    res.json({ user: req.session.user });
+}else {
+    res.status(401).json({ message: "Unauthorized" });
+  }
+}
+
 
 export  {
     signup,
-    signin
+    signin,
+    senduser
 }

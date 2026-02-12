@@ -33,5 +33,13 @@ const signin = async (req, res) => {
     };
     return res.json({ message: "success" });
 };
-export { signup, signin };
+const senduser = async (req, res) => {
+    if (req.session && req.session.user) {
+        res.json({ user: req.session.user });
+    }
+    else {
+        res.status(401).json({ message: "Unauthorized" });
+    }
+};
+export { signup, signin, senduser };
 //# sourceMappingURL=user.controller.js.map
