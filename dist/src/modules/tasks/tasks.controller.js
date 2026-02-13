@@ -13,7 +13,7 @@ const addTask = async (req, res) => {
 };
 const gettasks = async (req, res) => {
     try {
-        const userId = req.session.user?.id;
+        const userId = req.session.user?.userId;
         const tasks = await Task.find({ user: userId });
         if (!tasks || tasks.length === 0)
             res.json({ message: "there are no tasks yet" });
