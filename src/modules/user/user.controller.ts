@@ -22,11 +22,13 @@ const signin = async(req:any,res:any)=>{
     if(!user) return res.json({message:"user not found"})
     let isMatch = bcrypt.compareSync(password,user.password)
     if(!isMatch) return res.json({message:"invalid password"})
+    let token = jwt.sign({userId:user._id,},process.env.JWT_KEY as string,{expiresIn:"1d"})
     req.session.user = {
-    userId: user._id,
+    userId: user._id, 
     isLoggedIn:true,
     email:user.email,
     name:user.name,
+    token
     };
    return res.json({message:"success",session:req.session})
     
