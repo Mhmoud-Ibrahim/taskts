@@ -1,7 +1,7 @@
 import { Task } from "../../../database/models/tasks.model.js";
 const addTask = async (req, res) => {
     const { title, description, completed } = req.body;
-    const userId = req.user;
+    const userId = (req.session.user.userId);
     const newTask = new Task({
         title,
         description,
