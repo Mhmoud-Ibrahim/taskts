@@ -1,8 +1,8 @@
 
-import Jwt from 'jsonwebtoken'
 import jwt from 'jsonwebtoken';
 import { User } from '../../../database/models/user.model.js'
 import bcrypt from 'bcrypt'
+import session from 'express-session';
 //signup
 
 const signup = async(req:any,res:any)=>{
@@ -28,9 +28,8 @@ const signin = async(req:any,res:any)=>{
     isLoggedIn:true,
     email:user.email,
     name:user.name,
-    token
     };
-   return res.json({message:"success"})
+   return res.json({message:"success",session:req.session})
     
 }
 
