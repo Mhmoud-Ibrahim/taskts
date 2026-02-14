@@ -1,41 +1,41 @@
 import { Task } from "../../../database/models/tasks.model.js";
-const addTask = async (req, res) => {
+import { User } from "../../../database/models/user.model.js";
+import { catchError } from "../../middleware/catchError.js";
+import { AppError } from "../../utils/appError.js";
+const addTask = catchError(async (req, res) => {
     const { title, description, completed } = req.body;
-    const userId = (req.session.user.userId);
+    const task = await Task.findOne({ title });
+    if (task)
+        return res.status(400).json({ message: "task already exists" });
     const newTask = new Task({
         title,
         description,
         completed,
-        user: userId,
+        user: req.user
     });
     await newTask.save();
-    res.status(201).json({ message: "task added", newTask });
-};
-const gettasks = async (req, res) => {
-    try {
-        const userId = req.session.user?.userId;
-        const tasks = await Task.find({ user: userId });
-        if (!tasks || tasks.length === 0)
-            res.json({ message: "there are no tasks yet" });
-        res.json(tasks);
-    }
-    catch (error) {
-        res.status(500).json({ message: "server error", error });
-    }
-};
-const deleteTask = async (req, res) => {
+    res.status(201).json({ message: "success", newTask });
+});
+const gettasks = catchError(async (req, res, next) => {
+    const userId = req.session.user.userId;
+    const tasks = await Task.find({ user: userId });
+    if (!tasks || tasks.length === 0)
+        return next(new AppError('tasks not found', 404));
+    res.json({ message: "success", tasks });
+});
+const deleteTask = catchError(async (req, res, next) => {
     const userId = req.user;
     const taskId = req.params.id;
-    const task = await Task.findOneAndDelete({ _id: taskId, user: userId });
-    !task && res.status(404).json({ message: "task not found" });
+    const task = await Task.findByIdAndDelete({ _id: taskId, user: userId });
+    !task && next(new AppError('task not found', 404));
     task && res.status(200).json({ message: "task deleted successfully" });
-};
-const updateTask = async (req, res) => {
+});
+const updateTask = catchError(async (req, res) => {
     const userId = req.user;
     const taskId = req.params.id;
     const { title, description, completed } = req.body;
-    let newTask = await Task.findOneAndUpdate({ _id: taskId, user: userId }, { title, description, completed }, { new: true });
+    let newTask = await Task.findByIdAndUpdate({ _id: taskId, user: userId }, { title, description, completed }, { new: true });
     res.status(200).json({ message: "task updated successfully", newTask });
-};
+});
 export { addTask, gettasks, deleteTask, updateTask, };
 //# sourceMappingURL=tasks.controller.js.map

@@ -12,4 +12,4 @@ export const validate = (schema) => {
         }
     };
 };
-//# sourceMappingURL=auth.js.map
+//# sourceMappingURL=validate.js.map

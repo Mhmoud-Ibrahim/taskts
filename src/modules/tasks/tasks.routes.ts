@@ -1,14 +1,16 @@
 import { Router } from "express";
 import { addTask, deleteTask, gettasks, updateTask } from "./tasks.controller.js";
-import auth from "../../middleware/auth.js";
+import { validate } from "../../middleware/validate.js";
+import { addTaskval } from "./task.validation.js";
+import { protectedRoute } from "../../middleware/protectedRoute.js";
 
 const taskRouter =Router()
 
 taskRouter
-.post('/tasks',auth,addTask)
-.get('/tasks',auth,gettasks)
-.delete('/tasks/:id',auth,deleteTask)
-.put('/tasks/:id',auth,updateTask)
+.post('/tasks',protectedRoute,validate(addTaskval),addTask)
+.get('/tasks',protectedRoute,gettasks)
+.delete('/tasks/:id',protectedRoute,deleteTask)
+.put('/tasks/:id',protectedRoute,updateTask)
 
 
 export default taskRouter

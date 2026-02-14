@@ -1,16 +1,18 @@
 import mongoSession from 'connect-mongodb-session';
-import express from 'express';
+import express, {} from 'express';
 import { dbConnections } from './database/dbConnections.js';
 import taskRouter from './src/modules/tasks/tasks.routes.js';
 import userRouter from './src/modules/user/user.routes.js';
 import dotenv from 'dotenv';
 dotenv.config();
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 app.use(express.json());
 import cors from 'cors';
 import session from 'express-session';
 import 'express-session';
+import { AppError } from './src/utils/appError.js';
+import globalErrorHandler from './src/middleware/globalError.js';
 app.use(cors({
     origin: 'http://localhost:5173', // رابط الفروينت اند الخاص بك
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
@@ -30,7 +32,7 @@ app.use(session({
     resave: false,
     store,
     cookie: {
-        secure: false, // اجعله false طالما لا تستخدم https
+        secure: true, // اجعله false طالما لا تستخدم https
         httpOnly: true,
         maxAge: 1000 * 60 * 60 * 24,
         sameSite: 'lax' // مهم جداً للمتصفحات الحديثة في البيئة المحلية
@@ -40,5 +42,12 @@ app.use(taskRouter);
 app.use(userRouter);
 dbConnections();
 app.get('/', (req, res) => res.json({ message: "hello Tasks from mahmoud" }));
+app.all(/(.*)/, (req, res, next) => {
+    next(new AppError(`Route ${req.originalUrl} Not Found`, 404));
+});
+app.use((err, req, res, next) => {
+    res.status(err.statusCode).json({ error: "error", message: err.message, code: err.statusCode });
+});
+app.use(globalErrorHandler);
 app.listen(process.env.PORT || port, () => console.log(`Example app listening on port ${port}!`));
 //# sourceMappingURL=index.js.map
