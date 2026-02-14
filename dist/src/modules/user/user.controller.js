@@ -5,15 +5,20 @@ import { catchError } from '../../middleware/catchError.js';
 import { AppError } from '../../utils/appError.js';
 //signup
 const signup = catchError(async (req, res) => {
-    let user = new User(req.body);
-    await user.save();
+    const user = await User.findOne({ email: req.body.email });
+    if (user)
+        return res.status(400).json({ message: "user already exists" });
+    let newuser = new User(req.body);
+    await newuser.save();
     res.json({ message: "success" });
 });
 //signin
 const signin = catchError(async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    if (user && bcrypt.compareSync(password, user.password)) {
+    if (!user)
+        return next(new AppError('user not found', 401));
+    if (user && password === user.password) {
         let token = jwt.sign({ userId: user._id }, process.env.JWT_KEY);
         return res.json({ message: "success", token });
     }
