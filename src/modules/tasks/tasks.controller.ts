@@ -24,7 +24,15 @@ const gettasks= catchError(async (req:any,res:any,next)=>{
     if(!tasks) return next(new AppError('tasks not found',404)) 
     res.json({message:"success",tasks});
 })
-
+const getTask = catchError(
+    async (req: any, res: any, next: any) => {
+    const userId = req.headers.userId;
+    const taskId = req.params.id;
+    const task = await Tasks.findOne({ _id: taskId, user: userId });
+    !task && next(new AppError("task not found", 404));
+    res.json({ message: "success", task });
+    }
+)
 const deleteTask = catchError(async (req:any,res:any,next)=>{
     const userId = req.headers.userId
     const taskId = req.params.id
@@ -54,4 +62,5 @@ export  {
     gettasks,
     deleteTask,
     updateTask,
+    getTask
 }

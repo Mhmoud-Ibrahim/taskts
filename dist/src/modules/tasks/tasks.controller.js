@@ -22,6 +22,13 @@ const gettasks = catchError(async (req, res, next) => {
         return next(new AppError('tasks not found', 404));
     res.json({ message: "success", tasks });
 });
+const getTask = catchError(async (req, res, next) => {
+    const userId = req.headers.userId;
+    const taskId = req.params.id;
+    const task = await Tasks.findOne({ _id: taskId, user: userId });
+    !task && next(new AppError("task not found", 404));
+    res.json({ message: "success", task });
+});
 const deleteTask = catchError(async (req, res, next) => {
     const userId = req.headers.userId;
     const taskId = req.params.id;
@@ -36,5 +43,5 @@ const updateTask = catchError(async (req, res) => {
     let newTask = await Tasks.findByIdAndUpdate({ _id: taskId, user: userId }, { title, description, completed }, { new: true });
     res.status(200).json({ message: "task updated successfully", newTask });
 });
-export { addTask, gettasks, deleteTask, updateTask, };
+export { addTask, gettasks, deleteTask, updateTask, getTask };
 //# sourceMappingURL=tasks.controller.js.map
