@@ -16,7 +16,7 @@ const addTask = catchError(async (req, res) => {
     res.status(201).json({ message: "success", newTask });
 });
 const gettasks = catchError(async (req, res, next) => {
-    const userId = req.body.userId;
+    const userId = req.params.id;
     const tasks = await Tasks.findOne({ user: userId });
     if (!tasks)
         return next(new AppError('tasks not found', 404));
