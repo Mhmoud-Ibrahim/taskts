@@ -20,7 +20,7 @@ const addTask=catchError(async (req:any,res:any)=>{
 })
 
 const gettasks= catchError(async (req:any,res:any,next)=>{
-    const userId = req.session.user.userId
+    const userId = req.body
     const tasks = await Task.findById({user:userId})
     if(!tasks) return next(new AppError('tasks not found',404)) 
     res.json({message:"success",tasks});
