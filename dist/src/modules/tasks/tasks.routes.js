@@ -8,6 +8,6 @@ taskRouter
     .post('/tasks', protectedRoute, validate(addTaskval), addTask)
     .get('/tasks', gettasks)
     .delete('/tasks/:id', deleteTask)
-    .put('/tasks/:id', protectedRoute, updateTask);
+    .put('/tasks/:id', updateTask);
 export default taskRouter;
 //# sourceMappingURL=tasks.routes.js.map
