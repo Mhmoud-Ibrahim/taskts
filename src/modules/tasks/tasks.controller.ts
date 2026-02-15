@@ -1,6 +1,5 @@
 
 import {  Tasks, type ITask } from "../../../database/models/tasks.model.js"
-import { User } from "../../../database/models/user.model.js";
 import { catchError } from "../../middleware/catchError.js";
 import { AppError } from "../../utils/appError.js";
 
@@ -37,7 +36,7 @@ const updateTask = catchError(async (req:any,res:any)=>{
     const userId = (req as any).user; 
     const taskId = req.params.id
     const {title,description,completed} = req.body
-  let newTask =   await Task.findByIdAndUpdate({_id:taskId,user:userId},{title,description,completed},{new:true})
+  let newTask =   await Tasks.findByIdAndUpdate({_id:taskId,user:userId},{title,description,completed},{new:true})
     res.status(200).json({message:"task updated successfully",newTask})
 })
  
