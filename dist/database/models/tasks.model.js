@@ -15,5 +15,5 @@ const TAskSchema = new mongoose.Schema({
     user: { type: Schema.Types.ObjectId, ref: 'User', required: true },
 }, { timestamps: true,
 });
-export const Task = mongoose.model('Task', TAskSchema);
+export const Tasks = mongoose.model('Tasks', TAskSchema);
 //# sourceMappingURL=tasks.model.js.map

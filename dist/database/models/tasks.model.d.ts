@@ -5,7 +5,7 @@ export interface ITask extends Document {
     completed: boolean;
     user: Types.ObjectId;
 }
-export declare const Task: mongoose.Model<ITask, {}, {}, {}, mongoose.Document<unknown, {}, ITask, {}, mongoose.DefaultSchemaOptions> & ITask & Required<{
+export declare const Tasks: mongoose.Model<ITask, {}, {}, {}, mongoose.Document<unknown, {}, ITask, {}, mongoose.DefaultSchemaOptions> & ITask & Required<{
     _id: Types.ObjectId;
 }> & {
     __v: number;
