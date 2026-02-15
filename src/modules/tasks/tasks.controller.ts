@@ -26,9 +26,8 @@ const gettasks= catchError(async (req:any,res:any,next)=>{
 })
 const getTask = catchError(
     async (req: any, res: any, next: any) => {
-    const userId = req.headers.userId;
     const taskId = req.params.id;
-    const task = await Tasks.findOne({ _id: taskId, user: userId });
+    const task = await Tasks.findById({_id:taskId});
     !task && next(new AppError("task not found", 404));
     res.json({ message: "success", task });
     }
