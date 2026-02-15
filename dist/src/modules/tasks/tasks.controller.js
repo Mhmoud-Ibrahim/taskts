@@ -23,14 +23,14 @@ const gettasks = catchError(async (req, res, next) => {
     res.json({ message: "success", tasks });
 });
 const deleteTask = catchError(async (req, res, next) => {
-    const userId = req.headers.id;
+    const userId = req.headers.userId;
     const taskId = req.params.id;
     const task = await Tasks.findByIdAndDelete({ _id: taskId, user: userId });
     !task && next(new AppError('task not found', 404));
     task && res.status(200).json({ message: "task deleted successfully" });
 });
 const updateTask = catchError(async (req, res) => {
-    const userId = req.user;
+    const userId = req.headers.userId;
     const taskId = req.params.id;
     const { title, description, completed } = req.body;
     let newTask = await Tasks.findByIdAndUpdate({ _id: taskId, user: userId }, { title, description, completed }, { new: true });
