@@ -8,9 +8,6 @@
     "start": "/",
     "dev": "tsc -w "
   },
-  "engines": {
-    "node":"22.21.1"
-  },
   "keywords": [],
   "author": "",
   "license": "ISC",
