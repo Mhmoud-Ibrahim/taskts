@@ -11,8 +11,8 @@ taskRouter
 .post('/tasks',authenticate,validate(addTaskval),addTask)
 .get('/tasks',authenticate,gettasks)
 .get('/task/:id',getTask)
-.delete('/tasks/:id',deleteTask)
-.put('/tasks/:id',updateTask)
+.delete('/tasks/:id',authenticate,deleteTask)
+.put('/tasks/:id',authenticate,updateTask)
 
 
 export default taskRouter

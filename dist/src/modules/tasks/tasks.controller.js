@@ -29,7 +29,7 @@ const getTask = catchError(async (req, res, next) => {
     res.json({ message: "success", task });
 });
 const deleteTask = catchError(async (req, res, next) => {
-    const userId = req.headers.userId;
+    const userId = req.user.userId;
     const taskId = req.params.id;
     const task = await Tasks.findByIdAndDelete({ _id: taskId, user: userId });
     !task && next(new AppError('task not found', 404));
