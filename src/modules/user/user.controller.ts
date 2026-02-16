@@ -24,7 +24,7 @@ const signin = catchError(async (req, res, next) => {
         let token = jwt.sign({userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY as string)
         res.cookie('access_token', token, {
             httpOnly: true,   
-            secure: process.env.MODE === 'production',     
+            secure: true,     
             sameSite: 'strict', 
             maxAge: 3600000    
         })
