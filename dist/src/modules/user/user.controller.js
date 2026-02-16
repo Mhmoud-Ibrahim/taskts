@@ -18,17 +18,18 @@ const signin = catchError(async (req, res, next) => {
     const user = await User.findOne({ email });
     if (!user)
         return next(new AppError('user not found', 401));
-    if (user && bcrypt.compareSync(password, user.password)) {
+    const isPasswordCorrect = bcrypt.compareSync(password, user.password);
+    if (user && isPasswordCorrect) {
         let token = jwt.sign({ userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY);
         res.cookie('access_token', token, {
-            httpOnly: true, // حماية ضد الـ XSS (أهم خطوة)
-            secure: true, // يعمل فقط مع HTTPS
-            sameSite: 'strict', // حماية ضد الـ CSRF
-            maxAge: 3600000 // ساعة واحدة
+            httpOnly: true,
+            secure: process.env.MODE === 'production',
+            sameSite: 'strict',
+            maxAge: 3600000
         });
         return res.status(200).json({ message: "success" });
     }
-    next(new AppError('incorrect email or password ', 401));
+    return next(new AppError('incorrect email or password ', 401));
 });
 const logout = catchError((req, res) => {
     res.clearCookie('access_token', {
