@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "/",
-    "dev": "tsc -w && nodemon index.js"
+    "dev": "tsc -w && nodemon dist/index.js"
   },
   "engines": {
     "node": "22.21.1"
