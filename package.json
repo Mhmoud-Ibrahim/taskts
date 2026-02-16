@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
     "start": "/",
-    "dev": "tsc -w "
+    "dev": "tsc -w"
   },
   "engines": {
     "node": "22.21.1"
