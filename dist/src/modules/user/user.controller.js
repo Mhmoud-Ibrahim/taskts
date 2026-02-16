@@ -42,13 +42,11 @@ const logout = catchError((req, res) => {
     return res.json({ message: 'Logged out successfully' });
 });
 const getMe = catchError(async (req, res, next) => {
-    if (!req.user) {
-        return next(new AppError("Unauthorized - Please login", 401));
-    }
-    res.status(200).json({
-        status: "success",
-        data: req.user
-    });
+    const userId = req.user?.id || req.user?._id;
+    if (!userId)
+        return next(new AppError('User not authenticated', 401));
+    const user = await User.findById(userId);
+    res.json(user);
 });
 export { signup, signin, logout, getMe };
 //# sourceMappingURL=user.controller.js.map
