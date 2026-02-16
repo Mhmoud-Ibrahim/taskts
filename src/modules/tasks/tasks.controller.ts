@@ -7,11 +7,11 @@ const addTask=catchError(async (req:any,res:any)=>{
     const {title,description,completed} = req.body
     const task = await Tasks.findOne({title})
     if(task) return res.status(400).json({message:"task already exists"})
-    const newTask = new Tasks({
+        const newTask = new Tasks({
     title,
     description,
     completed,
-    user:(req as any).user
+    user:req.user.userId
     
     })
     await newTask.save()

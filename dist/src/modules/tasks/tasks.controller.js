@@ -10,7 +10,7 @@ const addTask = catchError(async (req, res) => {
         title,
         description,
         completed,
-        user: req.user
+        user: req.user.userId
     });
     await newTask.save();
     res.status(201).json({ message: "success", newTask });

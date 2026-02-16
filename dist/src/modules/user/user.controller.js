@@ -25,11 +25,11 @@ const signin = catchError(async (req, res, next) => {
         let token = jwt.sign({ userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY);
         res.cookie('access_token', token, {
             httpOnly: true,
-            secure: process.env.NODE_ENV === 'production',
+            secure: true,
             sameSite: 'strict',
             maxAge: 3600000
         });
-        return res.status(200).json({ message: "success" });
+        return res.status(200).json({ message: "success", token });
     }
     return next(new AppError('incorrect email or password ', 401));
 });
