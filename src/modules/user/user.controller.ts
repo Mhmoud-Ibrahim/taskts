@@ -58,15 +58,12 @@ const getMe = catchError(async (req: any, res: any, next: any) => {
 });
 
 
-const home = (req: any, res: any) => {
-    res.json({ message: "hello in My tasks" })
-}
+
 
 
 export {
     signup,
     signin,
     logout,
-    getMe,
-    home
+    getMe
 }

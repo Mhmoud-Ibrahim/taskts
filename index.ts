@@ -23,7 +23,9 @@ app.use(cors({
 
 app.use(taskRouter)
 app.use(userRouter)
-
+app.get('/',(req:Request,res:Response)=>{
+  res.json({message:"hello in My tasks"})
+})
 
 dbConnections()
 
