@@ -50,12 +50,16 @@ const logout = catchError((req: any, res: any) => {
 
 
 const getMe = catchError(async (req: any, res: any, next: any) => {
-    const userId = req.user?.id || req.user?._id;
-    if (!userId) return next(new AppError('User not authenticated', 401));  
+   const userId = req.user?.userId || req.user?._id;
+   if (!req.user || !userId) {
+       return next(new AppError("Unauthorized - Please login", 401));
+    }
     const user = await User.findById(userId);
-    res.json(user);
+    res.status(200).json({
+        status: "success",
+        data:req.user,user
     });
-
+});
 
 
 
