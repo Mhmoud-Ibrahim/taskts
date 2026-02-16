@@ -1,2 +1,2 @@
-import 'express-session';
+export {};
 //# sourceMappingURL=index.d.ts.map

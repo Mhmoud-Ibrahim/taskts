@@ -1,6 +1,6 @@
 export class AppError extends Error {
     statusCode;
-    status; // نص مثل 'fail' أو 'error'
+    status;
     constructor(message, statusCode) {
         super(message);
         this.statusCode = statusCode;

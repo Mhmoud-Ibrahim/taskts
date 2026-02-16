@@ -1,3 +1,0 @@
-import type { NextFunction, Request, Response } from "express";
-export declare const validate: (schema: any) => (req: Request, res: Response, next: NextFunction) => void;
-//# sourceMappingURL=auth.d.ts.map
