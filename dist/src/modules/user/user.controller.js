@@ -8,6 +8,8 @@ const signup = catchError(async (req, res) => {
     const user = await User.findOne({ email: req.body.email });
     if (user)
         return res.status(400).json({ message: "user already exists" });
+    const hashpassword = bcrypt.hashSync(req.body.password, 10);
+    req.body.password = hashpassword;
     let newuser = new User(req.body);
     await newuser.save();
     res.json({ message: "success" });
@@ -18,8 +20,8 @@ const signin = catchError(async (req, res, next) => {
     const user = await User.findOne({ email });
     if (!user)
         return next(new AppError('user not found', 401));
-    const isPasswordCorrect = bcrypt.compareSync(password, user.password);
-    if (user && isPasswordCorrect) {
+    const isPasswordCorrect = await bcrypt.compare(password, user.password);
+    if (isPasswordCorrect) {
         let token = jwt.sign({ userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY);
         res.cookie('access_token', token, {
             httpOnly: true,
