@@ -42,7 +42,7 @@ const signin = catchError(async (req, res, next) => {
 const logout = catchError((req: any, res: any) => {
     res.clearCookie('access_token', {
         httpOnly: true,
-        secure: true,
+        secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict'
     });
     return res.json({ message: 'Logged out successfully' })
