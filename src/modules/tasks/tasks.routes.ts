@@ -9,7 +9,7 @@ const taskRouter =Router()
 
 taskRouter
 .post('/tasks',authenticate,validate(addTaskval),addTask)
-.get('/tasks',gettasks)
+.get('/tasks',authenticate,gettasks)
 .get('/task/:id',getTask)
 .delete('/tasks/:id',deleteTask)
 .put('/tasks/:id',updateTask)
