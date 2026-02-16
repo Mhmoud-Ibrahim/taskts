@@ -23,7 +23,7 @@ const signin = catchError(async (req, res, next) => {
         let token = jwt.sign({ userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY);
         res.cookie('access_token', token, {
             httpOnly: true,
-            secure: true,
+            secure: process.env.NODE_ENV === 'production',
             sameSite: 'strict',
             maxAge: 3600000
         });
@@ -48,8 +48,5 @@ const getMe = catchError(async (req, res, next) => {
         data: req.user
     });
 });
-const home = (req, res) => {
-    res.json({ message: "hello in My tasks" });
-};
-export { signup, signin, logout, getMe, home };
+export { signup, signin, logout, getMe };
 //# sourceMappingURL=user.controller.js.map

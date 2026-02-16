@@ -19,6 +19,9 @@ app.use(cors({
 }));
 app.use(taskRouter);
 app.use(userRouter);
+app.get('/', (req, res) => {
+    res.json({ message: "hello in My tasks" });
+});
 dbConnections();
 app.all(/(.*)/, (req, res, next) => {
     next(new AppError(`Route ${req.originalUrl} Not Found`, 404));
