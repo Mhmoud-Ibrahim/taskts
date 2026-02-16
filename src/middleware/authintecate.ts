@@ -9,7 +9,7 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
         try {
         const decoded: any = jwt.verify(token, process.env.JWT_KEY as string);
         (req as any).user = decoded; 
-        next();
+       return next();
     } catch (error) {
         return next(new AppError("Invalid or expired token", 401));
     }
