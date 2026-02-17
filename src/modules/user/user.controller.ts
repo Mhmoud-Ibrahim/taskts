@@ -25,12 +25,11 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
     const isPasswordCorrect =await bcrypt.compare(password,user.password);
     if (isPasswordCorrect) {
         let token = jwt.sign({userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY as string)
-        res.cookie('access_token', token, {
+        res.cookie('task_token', token, {
             httpOnly: true,   
             secure:true,     
             sameSite: 'none', 
-            maxAge: 24 * 60 * 60 * 1000  ,
-            path: '/',   
+            maxAge: 24 * 60 * 60 * 1000  ,   
         })
         return res.status(200).json({ message: "success" });
     }
@@ -38,24 +37,26 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
 })
 
 const logout = catchError((req:Request, res:any) => {
-    res.clearCookie('access_token', {
+    res.clearCookie('task_token', {
         httpOnly: true,
-        secure:true,
-        sameSite: 'none'
+        secure:false,
+        sameSite: 'none',
     });
     return res.json({ message: 'Logged out successfully' })
 })
 
 
 const getMe = catchError(async (req: any, res: any, next: any) => {
-    
+     const token = req.cookies.token|| req.cookies
    const userId = req.user?.userId || req.user?._id;
-   if (!req.user || !userId) {
+   if(!token)return next(new AppError("not authorized no token", 401));
+   if (!req.cookies.token || !userId ||req.cookies) {
        return next(new AppError("Unauthorized - Please login", 401));
     }
     res.status(200).json({
         status: "success",
-        data:req.user
+        data:req.user,token
+        
     });
         
 });
