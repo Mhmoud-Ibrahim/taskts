@@ -47,18 +47,19 @@ const logout = catchError((req:Request, res:any) => {
 
 
 const getMe = catchError(async (req: any, res: any, next: any) => {
-     const token = req.cookies.token|| req.cookies
-   const userId = req.user?.userId || req.user?._id;
+       const token = req.cookies ||req.cookies.task_token 
    if(!token)return next(new AppError("not authorized no token", 401));
-   if (!req.cookies.token || !userId ||req.cookies) {
-       return next(new AppError("Unauthorized - Please login", 401));
+   if (!req.cookies.task_token ) {
+       return next(new AppError("no req cookies token", 401));
     }
-    res.status(200).json({
-        status: "success",
-        data:req.user,token
-        
-    });
-        
+   if (!req.cookies ) {
+       return next(new AppError("no req cookies ", 401));
+    }
+    if(token){
+    console.log('getMe', token);
+    res.status(200).json({status: "success",data:req.user,token});
+    }
+
 });
 
 
