@@ -23,21 +23,22 @@ const signin = catchError(async (req, res, next) => {
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (isPasswordCorrect) {
         let token = jwt.sign({ userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY);
-        res.cookie('token', token, {
+        res.cookie('access_token', token, {
             httpOnly: true,
-            secure: false,
-            sameSite: 'lax',
-            maxAge: 3600000
+            secure: true,
+            sameSite: 'none',
+            maxAge: 24 * 60 * 60 * 1000,
+            path: '/',
         });
         return res.status(200).json({ message: "success" });
     }
     return next(new AppError('incorrect email or password ', 401));
 });
 const logout = catchError((req, res) => {
-    res.clearCookie('token', {
+    res.clearCookie('access_token', {
         httpOnly: true,
-        secure: false,
-        sameSite: 'lax',
+        secure: true,
+        sameSite: 'none'
     });
     return res.json({ message: 'Logged out successfully' });
 });

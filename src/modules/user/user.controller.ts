@@ -29,7 +29,8 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
             httpOnly: true,   
             secure:true,     
             sameSite: 'none', 
-            maxAge: 24 * 60 * 60 * 1000     
+            maxAge: 24 * 60 * 60 * 1000  ,
+            path: '/',   
         })
         return res.status(200).json({ message: "success" });
     }
@@ -47,6 +48,7 @@ const logout = catchError((req:Request, res:any) => {
 
 
 const getMe = catchError(async (req: any, res: any, next: any) => {
+    
    const userId = req.user?.userId || req.user?._id;
    if (!req.user || !userId) {
        return next(new AppError("Unauthorized - Please login", 401));
