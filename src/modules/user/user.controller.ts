@@ -30,7 +30,7 @@ const signin = catchError(async (req, res, next) => {
             sameSite: "strict", 
             maxAge: 3600000    
         })
-        return res.status(200).json({ message: "success",token });
+        return res.status(200).json({ message: "success" });
     }
     return next(new AppError('incorrect email or password ', 401))
 })
@@ -54,11 +54,18 @@ const getMe = catchError(async (req: any, res: any, next: any) => {
    if (!req.user || !userId) {
        return next(new AppError("Unauthorized - Please login", 401));
     }
-    const user = await User.findById(userId);
     res.status(200).json({
         status: "success",
         data:req.user
     });
+     let token = jwt.sign({userId: req.user._id, email: req.user.email, name: req.user.name }, process.env.JWT_KEY as string)
+      res.cookie('access_token', token, {
+            httpOnly: true,   
+            secure:process.env.MODE === "production",     
+            sameSite: "strict", 
+            maxAge: 3600000    
+        })
+        next();
 });
 
 
