@@ -4,6 +4,7 @@ import { User } from '../../../database/models/user.model.js'
 import bcrypt from 'bcrypt'
 import { catchError } from '../../middleware/catchError.js';
 import { AppError } from '../../utils/appError.js';
+import type { NextFunction, Request, Response } from 'express';
 
 //signup
 const signup = catchError(async (req, res) => {
@@ -17,7 +18,7 @@ const signup = catchError(async (req, res) => {
 })
 
 //signin
-const signin = catchError(async (req, res, next) => {
+const signin = catchError(async (req:Request, res:Response, next:NextFunction) => {
     const { email, password } = req.body
     const user = await User.findOne({ email })
     if (!user) return next(new AppError('user not found', 401))
@@ -26,8 +27,8 @@ const signin = catchError(async (req, res, next) => {
         let token = jwt.sign({userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY as string)
         res.cookie('token', token, {
             httpOnly: true,   
-            secure:process.env.MODE === 'production',     
-            sameSite: "strict", 
+            secure:false,     
+            sameSite: 'lax', 
             maxAge: 3600000    
         })
         return res.status(200).json({ message: "success" });
@@ -35,15 +36,11 @@ const signin = catchError(async (req, res, next) => {
     return next(new AppError('incorrect email or password ', 401))
 })
 
-
-
-
-
-const logout = catchError((req: any, res: any) => {
+const logout = catchError((req:Request, res:any) => {
     res.clearCookie('token', {
         httpOnly: true,
-        secure:process.env.MODE === 'production',
-        sameSite: 'strict'
+        secure:false,
+        sameSite: 'lax',
     });
     return res.json({ message: 'Logged out successfully' })
 })
