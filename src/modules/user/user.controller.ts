@@ -26,8 +26,8 @@ const signin = catchError(async (req, res, next) => {
         let token = jwt.sign({userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY as string)
         res.cookie('access_token', token, {
             httpOnly: true,   
-            secure: true,     
-            sameSite: 'strict', 
+            secure:process.env.MODE === "production",     
+            sameSite: "strict", 
             maxAge: 3600000    
         })
         return res.status(200).json({ message: "success",token });
@@ -57,7 +57,7 @@ const getMe = catchError(async (req: any, res: any, next: any) => {
     const user = await User.findById(userId);
     res.status(200).json({
         status: "success",
-        data:req.user,user
+        data:req.user
     });
 });
 
