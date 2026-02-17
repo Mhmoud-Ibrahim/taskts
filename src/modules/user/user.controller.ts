@@ -27,8 +27,8 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
         let token = jwt.sign({userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY as string)
         res.cookie('access_token', token, {
             httpOnly: true,   
-            secure:false,     
-            sameSite: 'lax', 
+            secure:true,     
+            sameSite: 'none', 
             maxAge: 3600000    
         })
         return res.status(200).json({ message: "success" });
@@ -39,8 +39,8 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
 const logout = catchError((req:Request, res:any) => {
     res.clearCookie('access_token', {
         httpOnly: true,
-        secure:false,
-        sameSite: 'lax',
+        secure:true,
+        sameSite: 'none'
     });
     return res.json({ message: 'Logged out successfully' })
 })
