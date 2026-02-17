@@ -29,7 +29,7 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
             httpOnly: true,   
             secure:true,     
             sameSite: 'none', 
-            maxAge: 3600000    
+            maxAge: 24 * 60 * 60 * 1000     
         })
         return res.status(200).json({ message: "success" });
     }
