@@ -2,9 +2,9 @@ import jwt from "jsonwebtoken";
 import { AppError } from "../utils/appError.js";
 export const authenticate = (req, res, next) => {
     // قراءة التوكن من الكوكيز
-    const token = req.cookies.access_token;
+    const token = req.cookies.token;
     if (!token)
-        return next(new AppError(" token not found", 401));
+        return next(new AppError(" token not found unauthorized", 401));
     try {
         const decoded = jwt.verify(token, process.env.JWT_KEY);
         req.user = decoded;

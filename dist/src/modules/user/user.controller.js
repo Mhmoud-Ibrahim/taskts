@@ -23,7 +23,7 @@ const signin = catchError(async (req, res, next) => {
     const isPasswordCorrect = await bcrypt.compare(password, user.password);
     if (isPasswordCorrect) {
         let token = jwt.sign({ userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY);
-        res.cookie('access_token', token, {
+        res.cookie('token', token, {
             httpOnly: true,
             secure: process.env.MODE === "production",
             sameSite: "strict",
@@ -34,7 +34,7 @@ const signin = catchError(async (req, res, next) => {
     return next(new AppError('incorrect email or password ', 401));
 });
 const logout = catchError((req, res) => {
-    res.clearCookie('access_token', {
+    res.clearCookie('token', {
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
         sameSite: 'strict'
@@ -50,14 +50,6 @@ const getMe = catchError(async (req, res, next) => {
         status: "success",
         data: req.user
     });
-    let token = jwt.sign({ userId: req.user._id, email: req.user.email, name: req.user.name }, process.env.JWT_KEY);
-    res.cookie('access_token', token, {
-        httpOnly: true,
-        secure: process.env.MODE === "production",
-        sameSite: "strict",
-        maxAge: 3600000
-    });
-    next();
 });
 export { signup, signin, logout, getMe };
 //# sourceMappingURL=user.controller.js.map

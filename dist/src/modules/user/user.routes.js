@@ -6,6 +6,6 @@ userRouter
     .post('/signup', signup)
     .post('/signin', signin)
     .post('/logout', logout)
-    .get('/me', getMe);
+    .get('/me', authenticate, getMe);
 export default userRouter;
 //# sourceMappingURL=user.routes.js.map
