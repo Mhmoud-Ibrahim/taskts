@@ -25,7 +25,7 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
     const isPasswordCorrect =await bcrypt.compare(password,user.password);
     if (isPasswordCorrect) {
         let token = jwt.sign({userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY as string)
-        res.cookie('token', token, {
+        res.cookie('access_token', token, {
             httpOnly: true,   
             secure:false,     
             sameSite: 'lax', 
@@ -37,7 +37,7 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
 })
 
 const logout = catchError((req:Request, res:any) => {
-    res.clearCookie('token', {
+    res.clearCookie('access_token', {
         httpOnly: true,
         secure:false,
         sameSite: 'lax',
