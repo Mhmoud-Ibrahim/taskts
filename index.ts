@@ -10,9 +10,7 @@ import dotenv from 'dotenv'
 dotenv.config()
 const app = express()
 const port =process.env.PORT ||3000
-app.use(express.json())
 
-app.use(cookieParser())
 
 app.use(cors({
   origin: 'http://localhost:5173', // رابط الفروينت اند الخاص بك
@@ -20,6 +18,8 @@ app.use(cors({
   credentials: true // ضروري للسماح بالكوكيز
 }));
 
+app.use(cookieParser())
+app.use(express.json())
 
 app.use(taskRouter)
 app.use(userRouter)
