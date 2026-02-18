@@ -35,7 +35,6 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
     }
     return next(new AppError('incorrect email or password ', 401))
 })
-
 const logout = catchError((req:Request, res:any) => {
     res.clearCookie('task_token', {
         httpOnly: true,
@@ -45,7 +44,6 @@ const logout = catchError((req:Request, res:any) => {
     });
     return res.json({ message: 'Logged out successfully' })
 })
-
 
 const getMe = catchError(async (req: any, res: any, next: any) => {
     const token = req.cookies ||req.cookies.task_token 
