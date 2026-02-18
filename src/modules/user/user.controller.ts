@@ -38,22 +38,23 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
 
 const logout = catchError((req:Request, res:any) => {
     res.clearCookie('task_token', {
-        httpOnly: false,
-        secure:false,
-        sameSite: 'lax',
+        httpOnly: true,
+        secure:true,
+        sameSite: 'none',
+        path: '/' 
     });
     return res.json({ message: 'Logged out successfully' })
 })
 
 
 const getMe = catchError(async (req: any, res: any, next: any) => {
-       const token = req.cookies ||req.cookies.task_token 
-   if(!token)return next(new AppError("not authorized no token", 401));
-   if (!req.cookies.task_token ) {
-       return next(new AppError("no req cookies token", 401));
+    const token = req.cookies ||req.cookies.task_token 
+    if(!token)return next(new AppError("not authorized no token", 401));
+    if (!req.cookies.task_token ) {
+    return next(new AppError("no req cookies token", 401));
     }
-   if (!req.cookies ) {
-       return next(new AppError("no req cookies ", 401));
+    if (!req.cookies ) {
+    return next(new AppError("no req cookies ", 401));
     }
     if(token){
     console.log('getMe', token);
