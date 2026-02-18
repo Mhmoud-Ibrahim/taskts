@@ -38,9 +38,9 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
 
 const logout = catchError((req:Request, res:any) => {
     res.clearCookie('task_token', {
-        httpOnly: true,
+        httpOnly: false,
         secure:false,
-        sameSite: 'none',
+        sameSite: 'lax',
     });
     return res.json({ message: 'Logged out successfully' })
 })
