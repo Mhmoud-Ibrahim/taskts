@@ -41,7 +41,7 @@ const deleteTask = catchError(async (req:any,res:any,next)=>{
 const updateTask = catchError(async (req:any,res:any)=>{
     const taskId = req.params.id
     const {title,description,completed} = req.body
-  let newTask =   await Tasks.findByIdAndUpdate({_id:taskId},{title,description,completed},{new:true})
+  let newTask = await Tasks.findByIdAndUpdate({_id:taskId},{title,description,completed},{new:true})
     res.status(200).json({message:"task updated successfully",newTask})
 })
  
