@@ -1,3 +1,5 @@
+import dotenv from 'dotenv';
+dotenv.config();
 import express, {} from 'express';
 import { dbConnections } from './database/dbConnections.js';
 import taskRouter from './src/modules/tasks/tasks.routes.js';
@@ -6,12 +8,10 @@ import { AppError } from './src/utils/appError.js';
 import globalErrorHandler from './src/middleware/globalError.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
-import dotenv from 'dotenv';
-dotenv.config();
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(cors({
-    origin: 'http://localhost:5173', // رابط الفروينت اند الخاص بك
+    origin: 'https://tasks-frontend-roan.vercel.app', // رابط الفروينت اند الخاص بك
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true, // ضروري للسماح بالكوكيز
     allowedHeaders: ['Content-Type', 'Authorization']

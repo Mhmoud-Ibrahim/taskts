@@ -1,3 +1,5 @@
+import dotenv from 'dotenv'
+dotenv.config()
 import express, { type NextFunction, type Request, type Response } from 'express'
 import { dbConnections } from './database/dbConnections.js'
 import taskRouter from './src/modules/tasks/tasks.routes.js'
@@ -6,8 +8,6 @@ import { AppError } from './src/utils/appError.js';
 import globalErrorHandler from './src/middleware/globalError.js';
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import dotenv from 'dotenv'
-dotenv.config()
 const app = express()
 const port =process.env.PORT ||3000
 

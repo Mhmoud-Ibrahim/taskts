@@ -36,8 +36,9 @@ const signin = catchError(async (req, res, next) => {
 const logout = catchError((req, res) => {
     res.clearCookie('task_token', {
         httpOnly: true,
-        secure: false,
+        secure: true,
         sameSite: 'none',
+        path: '/'
     });
     return res.json({ message: 'Logged out successfully' });
 });

@@ -1,3 +1,4 @@
 import mongoose from "mongoose";
-export declare const dbConnections: () => Promise<typeof mongoose> | undefined;
+import 'dotenv/config';
+export declare const dbConnections: () => Promise<typeof mongoose | mongoose.Connection>;
 //# sourceMappingURL=dbConnections.d.ts.map
