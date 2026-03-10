@@ -26,7 +26,7 @@ const signin = catchError(async (req:Request, res:Response, next:NextFunction) =
     if (isPasswordCorrect) {
         let token = jwt.sign({userId: user._id, email: user.email, name: user.name }, process.env.JWT_KEY as string)
         res.cookie('task_token', token, {
-            httpOnly: false,   
+            httpOnly: true,   
             secure:true,     
             sameSite: 'none', 
             maxAge: 24 * 60 * 60 * 1000  ,   
