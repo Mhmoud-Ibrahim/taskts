@@ -14,8 +14,9 @@ const port =process.env.PORT ||3000
 
 app.use(cors({
   origin: [
-    'tasksnextjs.vercel.app',
-    'tasks-frontend-roan.vercel.app'
+    'https://tasksnextjs.vercel.app',
+    'https://tasks-frontend-roan.vercel.app',
+    'http://localhost:3000'
   ], // رابط الفروينت اند الخاص بك
   methods: ['GET','POST','PUT','DELETE'],
   credentials: true, // ضروري للسماح بالكوكيز
