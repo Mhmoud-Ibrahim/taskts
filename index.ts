@@ -27,7 +27,7 @@ app.use(cookieParser())
 app.use(express.json())
 
 app.use(taskRouter)
-app.use(userRouter)
+app.use('/auth',userRouter)
 app.get('/',(req:Request,res:Response)=>{
   res.json({message:"hello in My tasks"})
 })
