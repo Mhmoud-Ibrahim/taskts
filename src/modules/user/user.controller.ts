@@ -253,7 +253,7 @@ const sendTokenResponse = (user: any, res: Response) => {
         { expiresIn: '24h' }
     );
     
-    res.cookie('noorToken', token, {
+    res.cookie('token', token, {
         httpOnly: true,
         secure: true, 
         sameSite: 'none',
@@ -288,7 +288,7 @@ export const signin = catchError(async (req: Request, res: Response, next: NextF
 });
 
 export const logout = catchError((req: Request, res: any) => {
-    res.clearCookie('noorToken', {
+    res.clearCookie('token', {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
@@ -305,7 +305,7 @@ export const getMe = catchError(async (req: any, res: Response, next: NextFuncti
 export const googleAuthSuccess = catchError(async (req: Request, res: Response) => {
     if (req.user) {
         sendTokenResponse(req.user, res);
-        res.redirect('https://noor-store-five.vercel.app'); 
+        res.redirect('https://tasksnextjs.vercel.app'); 
     } else {
         res.redirect('https://vercel.app');
     }
