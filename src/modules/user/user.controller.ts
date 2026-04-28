@@ -3,7 +3,6 @@ import jwt from 'jsonwebtoken'
 import { User, type IUser } from '../../../database/models/user.model.js'
 import bcrypt from 'bcrypt'
 import { catchError } from '../../middleware/catchError.js';
-import { AppError } from '../../utils/appError.js';
 import type { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import { Strategy as GoogleStrategy, type Profile, type VerifyCallback } from 'passport-google-oauth20';
@@ -12,6 +11,7 @@ import crypto from 'crypto';
 import dotenv from 'dotenv';
 import path from 'path';
 import { sendEmail } from '../../utils/sendEmail.js';
+import { AppError } from '../../utils/appError.js';
 
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 

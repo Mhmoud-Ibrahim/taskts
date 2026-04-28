@@ -3,15 +3,15 @@ import jwt from 'jsonwebtoken'
 import { User } from '../../../database/models/user.model.js'
 import bcrypt from 'bcrypt'
 import { catchError } from '../../middleware/catchError.js';
-import { AppError } from '../../utils/appError.js';
 import type { NextFunction, Request, Response } from 'express';
 import passport from 'passport';
 import { Strategy as GoogleStrategy, type Profile, type VerifyCallback } from 'passport-google-oauth20';
+import { AppError } from '../../utils/appError.js';
 
 passport.use(new GoogleStrategy({
     clientID: process.env.clientID as string,
     clientSecret: process.env.clientSecret as string,
-    callbackURL: "https://noor-server-ts.vercel.app/auth/google/callback",
+    callbackURL: "https://taskts.vercel.app/auth/google",
   },
   async (_accessToken: string, _refreshToken: string, profile: Profile, done: VerifyCallback) => {
     try {
