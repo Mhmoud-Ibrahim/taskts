@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import { AppError } from "../utils/appError.js";
 export const authenticate = (req, res, next) => {
-    const token = req.cookies?.token;
+    const token = req.cookies?.TaskToken;
     if (!token) {
         return next(new AppError("Login first to access this route", 401));
     }

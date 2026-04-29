@@ -195,7 +195,7 @@ passport.use(new GoogleStrategy({
 // --- 2. الدوال المساعدة ---
 const sendTokenResponse = (user, res) => {
     const token = jwt.sign({ userId: user._id, email: user.email, name: user.name, role: user.role }, process.env.JWT_KEY, { expiresIn: '24h' });
-    res.cookie('token', token, {
+    res.cookie('TaskToken', token, {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
@@ -225,7 +225,7 @@ export const signin = catchError(async (req, res, next) => {
     return next(new AppError('incorrect email or password ', 401));
 });
 export const logout = catchError((req, res) => {
-    res.clearCookie('token', {
+    res.clearCookie('TaskToken', {
         httpOnly: true,
         secure: true,
         sameSite: 'none',

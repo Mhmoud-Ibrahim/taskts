@@ -14,7 +14,7 @@ interface JwtPayload {
 
 
 export const authenticate = (req:Request, res: Response, next: NextFunction) => {
-    const token = req.cookies?.token;
+    const token = req.cookies?.TaskToken;
     if (!token) {
         return next(new AppError("Login first to access this route", 401));
     }
