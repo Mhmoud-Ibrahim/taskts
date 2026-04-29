@@ -1,9 +1,7 @@
 
-
 import jwt from "jsonwebtoken";
 import type { NextFunction, Request, Response } from "express";
 import { AppError } from "../utils/appError.js";
-
 
 interface JwtPayload {
     userId: string;
@@ -16,7 +14,7 @@ interface JwtPayload {
 
 
 export const authenticate = (req:Request, res: Response, next: NextFunction) => {
-    const token = req.cookies?.noorToken;
+    const token = req.cookies?.token;
     if (!token) {
         return next(new AppError("Login first to access this route", 401));
     }
@@ -37,5 +35,4 @@ export const allowedTo = (...roles: string[]) => {
         next();
     };
 };
-
 
