@@ -203,8 +203,8 @@ import { sendEmail } from '../../utils/sendEmail.js';
 dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 
 passport.use(new GoogleStrategy({
-    clientID: process.env.clientID as string,
-    clientSecret: process.env.clientSecret as string,
+    clientID: process.env.clientID!,
+    clientSecret: process.env.clientSecret!,
     callbackURL: "https://taskts.vercel.app/auth/google/callback",
   },
   async (_accessToken: string, _refreshToken: string, profile: Profile, done: VerifyCallback) => {
@@ -245,7 +245,7 @@ const sendTokenResponse = (user: any, res: Response) => {
         { expiresIn: '24h' }
     );
     
-    res.cookie('noorToken', token, {
+    res.cookie('token', token, {
         httpOnly: true,
         secure: true, 
         sameSite: 'none',
