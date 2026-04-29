@@ -4,14 +4,18 @@ import express, {} from 'express';
 import { dbConnections } from './database/dbConnections.js';
 import taskRouter from './src/modules/tasks/tasks.routes.js';
 import userRouter from './src/modules/user/user.routes.js';
-import { AppError } from './src/utils/appError.js';
 import globalErrorHandler from './src/middleware/globalError.js';
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
+import { AppError } from './src/utils/appError.js';
 const app = express();
 const port = process.env.PORT || 3000;
 app.use(cors({
-    origin: 'https://tasks-frontend-roan.vercel.app', // رابط الفروينت اند الخاص بك
+    origin: [
+        'https://tasksnextjs.vercel.app',
+        'https://tasks-frontend-roan.vercel.app',
+        'http://localhost:3000'
+    ], // رابط الفروينت اند الخاص بك
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true, // ضروري للسماح بالكوكيز
     allowedHeaders: ['Content-Type', 'Authorization']
@@ -19,7 +23,7 @@ app.use(cors({
 app.use(cookieParser());
 app.use(express.json());
 app.use(taskRouter);
-app.use(userRouter);
+app.use('/auth', userRouter);
 app.get('/', (req, res) => {
     res.json({ message: "hello in My tasks" });
 });

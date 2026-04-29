@@ -1,41 +1,19 @@
-import mongoose from "mongoose";
-export declare const User: mongoose.Model<{
+import mongoose, { Document } from "mongoose";
+export interface IUser extends Document {
     name: string;
     email: string;
     password: string;
-} & mongoose.DefaultTimestampProps, {}, {}, {}, mongoose.Document<unknown, {}, {
-    name: string;
-    email: string;
-    password: string;
-} & mongoose.DefaultTimestampProps, {}, {
-    timestamps: true;
+    userImage?: string;
+    role: string;
+    googleId?: string;
+    otpCode: string;
+    otpExpire: Date;
+    passwordResetToken?: string;
+    passwordResetExpires?: Date;
+}
+export declare const User: mongoose.Model<IUser, {}, {}, {}, mongoose.Document<unknown, {}, IUser, {}, {}> & IUser & Required<{
+    _id: mongoose.Types.ObjectId;
 }> & {
-    name: string;
-    email: string;
-    password: string;
-} & mongoose.DefaultTimestampProps & {
-    _id: mongoose.Types.ObjectId;
-} & {
     __v: number;
-}, mongoose.Schema<any, mongoose.Model<any, any, any, any, any, any>, {}, {}, {}, {}, {
-    timestamps: true;
-}, {
-    name: string;
-    email: string;
-    password: string;
-} & mongoose.DefaultTimestampProps, mongoose.Document<unknown, {}, mongoose.FlatRecord<{
-    name: string;
-    email: string;
-    password: string;
-} & mongoose.DefaultTimestampProps>, {}, mongoose.MergeType<mongoose.DefaultSchemaOptions, {
-    timestamps: true;
-}>> & mongoose.FlatRecord<{
-    name: string;
-    email: string;
-    password: string;
-} & mongoose.DefaultTimestampProps> & {
-    _id: mongoose.Types.ObjectId;
-} & {
-    __v: number;
-}>>;
+}, any>;
 //# sourceMappingURL=user.model.d.ts.map
