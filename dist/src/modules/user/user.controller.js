@@ -164,7 +164,7 @@ dotenv.config({ path: path.resolve(process.cwd(), '.env') });
 passport.use(new GoogleStrategy({
     clientID: process.env.clientID,
     clientSecret: process.env.clientSecret,
-    callbackURL: "https://taskts.vercel.app/auth/google",
+    callbackURL: "https://taskts.vercel.app/auth/google/callback",
 }, async (_accessToken, _refreshToken, profile, done) => {
     try {
         const userEmail = profile.emails && profile.emails[0] ? profile.emails[0].value : null;
