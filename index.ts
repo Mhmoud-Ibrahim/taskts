@@ -38,9 +38,7 @@ dbConnections()
 app.all(/(.*)/,(req:Request,res:Response,next:NextFunction)=>{
   next(new AppError(`Route ${req.originalUrl} Not Found`,404))
 })
-app.use((err:any,req:Request,res:Response,next:NextFunction)=>{
-  res.status(err.statusCode).json({error: "error", message:err.message,code:err.statusCode})
-})
+
 
 app.use(globalErrorHandler)
 

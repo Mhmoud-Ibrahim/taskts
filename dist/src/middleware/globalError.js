@@ -1,18 +1,29 @@
+// import type { NextFunction, Request, Response } from "express";
 const globalErrorHandler = (err, req, res, next) => {
-    const statusCode = Number(err.statusCode) || 500;
+    // التأكد أن الـ statusCode رقم صحيح وليس undefined أو NaN
+    let statusCode = err.statusCode;
+    if (!statusCode || isNaN(Number(statusCode))) {
+        statusCode = 500;
+    }
+    else {
+        statusCode = Number(statusCode);
+    }
     const status = err.status || 'error';
     const message = err.message || 'Internal Server Error';
+    // ملاحظة: Vercel غالبًا ما تعمل بوضع production إلا لو حددت غير ذلك
     if (process.env.MODE === 'development') {
-        res.status(statusCode).json({
+        return res.status(statusCode).json({
             status: status,
             error: message,
-            stack: err.stack
+            stack: err.stack,
+            code: statusCode
         });
     }
     else {
-        res.status(statusCode).json({
+        return res.status(statusCode).json({
             status: status,
-            error: message
+            error: message,
+            code: statusCode
         });
     }
 };

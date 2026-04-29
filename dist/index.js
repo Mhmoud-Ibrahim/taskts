@@ -31,9 +31,6 @@ dbConnections();
 app.all(/(.*)/, (req, res, next) => {
     next(new AppError(`Route ${req.originalUrl} Not Found`, 404));
 });
-app.use((err, req, res, next) => {
-    res.status(err.statusCode).json({ error: "error", message: err.message, code: err.statusCode });
-});
 app.use(globalErrorHandler);
 app.listen(process.env.PORT || port, () => console.log(`Example app listening on port ${port}!`));
 //# sourceMappingURL=index.js.map
