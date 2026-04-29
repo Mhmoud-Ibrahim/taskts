@@ -53,7 +53,7 @@ const sendTokenResponse = (user: any, res: Response) => {
         { expiresIn: '24h' }
     );
     
-    res.cookie('noorToken', token, {
+    res.cookie('token', token, {
         httpOnly: true,
         secure: true, // مهم جداً لأنك ترفع على Vercel (HTTPS)
         sameSite: 'none',
@@ -89,7 +89,7 @@ const signin = catchError(async (req: Request, res: Response, next: NextFunction
 });
 
 const logout = catchError((req: Request, res: any) => {
-    res.clearCookie('noorToken', {
+    res.clearCookie('token', {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
