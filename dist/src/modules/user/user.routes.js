@@ -4,14 +4,18 @@ import { Router } from 'express';
 import passport from 'passport';
 import * as authController from './user.controller.js';
 const userRouter = Router();
-userRouter.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
+// التعديل هنا: إضافة { session: false } للراوت الأول أيضاً
+userRouter.get('/google', passport.authenticate('google', {
+    scope: ['profile', 'email'],
+    session: false
+}));
 userRouter.get('/google/callback', passport.authenticate('google', { session: false, failureRedirect: 'https://vercel.app' }), authController.googleAuthSuccess);
 userRouter.post('/signup', signup);
 userRouter.post('/signin', signin);
 userRouter.post('/logout', logout);
 userRouter.get('/me', authenticate, getMe);
 // --- Forgot & Reset Password Routes ---
-userRouter.post('/forgotPassword', authController.forgotPassword); // لإرسال الإيميل
-userRouter.patch('/resetPassword', authController.resetPassword); // لتغيير الباسورد الفعلي
+userRouter.post('/forgotPassword', authController.forgotPassword);
+userRouter.patch('/resetPassword', authController.resetPassword);
 export default userRouter;
 //# sourceMappingURL=user.routes.js.map
