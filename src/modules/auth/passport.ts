@@ -11,7 +11,7 @@ import { Strategy as GoogleStrategy, type Profile, type VerifyCallback } from 'p
 passport.use(new GoogleStrategy({
     clientID: process.env.clientID as string,
     clientSecret: process.env.clientSecret as string,
-    callbackURL: "https://noor-server-ts.vercel.app/auth/google/callback",
+    callbackURL: "https://taskts.vercel.app/auth/google/callback",
   },
   async (_accessToken: string, _refreshToken: string, profile: Profile, done: VerifyCallback) => {
     try {
@@ -114,9 +114,9 @@ const googleAuthSuccess = catchError(async (req: Request, res: Response, next: N
     if (req.user) {
         sendTokenResponse(req.user, res);
         // التوجيه لصفحة الـ Home في الفرونت إند بعد نجاح الدخول
-        res.redirect('noor-store-five.vercel.app'); 
+        res.redirect('https://tasksnextjs.vercel.app'); 
     } else {
-        res.redirect('noor-store-five.vercel.app');
+        res.redirect('https://tasksnextjs.vercel.app');
     }
 });
 
