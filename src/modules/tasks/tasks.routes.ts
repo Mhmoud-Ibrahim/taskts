@@ -1,14 +1,13 @@
 import { Router } from "express";
 import { addTask, deleteTask, getTask, gettasks, updateTask } from "./tasks.controller.js";
-import { validate } from "../../middleware/validate.js";
-import { addTaskval } from "./task.validation.js";
+
 import { authenticate } from "../../middleware/authintecate.js";
 
 
 const taskRouter =Router()
 
 taskRouter
-.post('/tasks',authenticate,validate(addTaskval),addTask)
+.post('/tasks',authenticate,addTask)
 .get('/tasks',authenticate,gettasks)
 .get('/task/:id',authenticate,getTask)
 .delete('/tasks/:id',authenticate,deleteTask)

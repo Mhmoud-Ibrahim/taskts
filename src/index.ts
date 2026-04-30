@@ -1,13 +1,13 @@
 import dotenv from 'dotenv'
 dotenv.config()
 import express, { type Application, type NextFunction, type Request, type Response } from 'express'
-import { dbConnections } from './database/dbConnections.js'
-import taskRouter from './src/modules/tasks/tasks.routes.js'
-import globalErrorHandler from './src/middleware/globalError.js';
+import { dbConnections } from '../database/dbConnections.js'
+import taskRouter from './modules/tasks/tasks.routes.js'
+import globalErrorHandler from './middleware/globalError.js';
 import cookieParser from 'cookie-parser'
 import cors from 'cors'
-import { AppError } from './src/utils/appError.js'
-import authRouter from './src/modules/auth/auth.routes.js'
+import { AppError } from './utils/appError.js'
+import authRouter from './modules/auth/auth.routes.js'
 import passport from 'passport'
 
 
@@ -35,7 +35,6 @@ app.use(express.urlencoded({ limit: '15mb', extended: true }));
 // 3. تفعيل الباسبورت (يجب أن يتم قبل تعريف الـ Routes)
 app.use(passport.initialize());
 
-app.use('/uploads', express.static('uploads'));
 
 app.use(taskRouter)
 app.use('/auth', authRouter);
