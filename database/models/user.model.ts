@@ -1,26 +1,3 @@
-// import mongoose from "mongoose";
-
-// const Schema = new mongoose.Schema({
-//    name:{
-//     type:String,
-//     required:true
-//    },
-//     email:{
-//         type:String,
-//         required:true,
-//     },
-//     password:{
-//         type:String,
-//         required:true
-//     }
-// },{timestamps:true,
-    
-// })
-
-
-// export const User = mongoose.model('User',Schema)       
-
-
 import mongoose, { Document, Schema, model } from "mongoose";
 
 // 1. تعريف الـ Interface
