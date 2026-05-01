@@ -16,7 +16,8 @@ const app: Application = express();
 app.use(cors({
   origin: [
     'https://tasksnextjs.vercel.app',
-    'http://localhost:3000'
+    'http://localhost:3000',
+    'https://api.cloudinary.com'
   ], // رابط الفروينت اند الخاص بك
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
   credentials: true, 
