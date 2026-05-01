@@ -16,8 +16,6 @@ const app: Application = express();
 app.use(cors({
   origin: [
     'https://tasksnextjs.vercel.app',
-    'https://vercel.app',
-    'https://tasksnextjs.vercel.app/auth/me',
     'https://api.cloudinary.com'
   ], // رابط الفروينت اند الخاص بك
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
