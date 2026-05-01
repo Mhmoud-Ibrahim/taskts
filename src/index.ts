@@ -16,7 +16,6 @@ const app: Application = express();
 app.use(cors({
   origin: [
     'https://tasksnextjs.vercel.app',
-    'https://tasks-frontend-roan.vercel.app',
     'http://localhost:3000'
   ], // رابط الفروينت اند الخاص بك
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
