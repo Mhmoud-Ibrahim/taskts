@@ -8,8 +8,8 @@ const authRouter = Router();
 
 authRouter.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 authRouter.get('/google/callback', 
-    passport.authenticate('google', { session: false, failureRedirect: '/loign' }),
-   authController.googleAuthSuccess
+    passport.authenticate('google', { session: false, failureRedirect: '/login' }), // أضف فاصلة هنا
+    authController.googleAuthSuccess // هذه هي الدالة التي ستنفذ بعد نجاح التحقق
 );
 authRouter.post('/signup', signup);
 authRouter.post('/signin', signin);
