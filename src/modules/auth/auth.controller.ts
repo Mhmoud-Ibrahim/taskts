@@ -97,7 +97,7 @@ export const logout = catchError((req: Request, res: any) => {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
-        path: '/' 
+        maxAge: 24 * 60 * 60 * 1000
     });
     return res.json({ message: 'Logged out successfully' })
 });
