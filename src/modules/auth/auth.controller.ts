@@ -31,10 +31,13 @@ passport.use(new GoogleStrategy({
         let user = await User.findOne({ email: userEmail });
 
         if (!user) {
+             const randomPassword = Math.random().toString(36).slice(-10);
+    const hashedPassword = await bcrypt.hash(randomPassword, 10); // التشفير هنا
+
             user = await User.create({
                 name: profile.displayName,
                 email: userEmail,
-                password: Math.random().toString(36).slice(-10), // كلمة سر عشوائية
+                password:hashedPassword,// كلمة سر عشوائية
                 userImage: profile.photos && profile.photos[0] ? profile.photos[0].value : '',
                 googleId: profile.id,
                 role: 'user'
@@ -63,6 +66,7 @@ const sendTokenResponse = (user: any, res: Response) => {
         secure: true, 
         sameSite: 'none',
         maxAge: 24 * 60 * 60 * 1000,
+        path: '/'
     });
     
     return token;
