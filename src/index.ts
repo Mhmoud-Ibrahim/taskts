@@ -11,7 +11,7 @@ import authRouter from './modules/auth/auth.routes.js'
 import passport from 'passport'
 
 
-
+import './modules/auth/auth.controller.js'; 
 const app: Application = express();
 app.use(cors({
   origin: [
