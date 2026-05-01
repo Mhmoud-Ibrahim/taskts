@@ -28,7 +28,6 @@ passport.use(new GoogleStrategy({
             user = await User.create({
                 name: profile.displayName,
                 email: userEmail,
-                // كلمة سر عشوائية لأن التسجيل عبر جوجل
                 password: Math.random().toString(36).slice(-10), 
                 userImage: profile.photos && profile.photos[0] ? profile.photos[0].value : '',
                 googleId: profile.id,
@@ -53,7 +52,7 @@ const sendTokenResponse = (user: any, res: Response) => {
         { expiresIn: '24h' }
     );
     
-    res.cookie('noorToken', token, {
+    res.cookie('taskToken', token, {
         httpOnly: true,
         secure: true, // مهم جداً لأنك ترفع على Vercel (HTTPS)
         sameSite: 'none',
@@ -89,7 +88,7 @@ const signin = catchError(async (req: Request, res: Response, next: NextFunction
 });
 
 const logout = catchError((req: Request, res: any) => {
-    res.clearCookie('noorToken', {
+    res.clearCookie('taskToken', {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
@@ -114,9 +113,9 @@ const googleAuthSuccess = catchError(async (req: Request, res: Response, next: N
     if (req.user) {
         sendTokenResponse(req.user, res);
         // التوجيه لصفحة الـ Home في الفرونت إند بعد نجاح الدخول
-        res.redirect('https://tasksnextjs.vercel.app'); 
+        res.redirect('tasksnextjs.vercel.app'); 
     } else {
-        res.redirect('https://tasksnextjs.vercel.app');
+        res.redirect('https://vercel.app');
     }
 });
 

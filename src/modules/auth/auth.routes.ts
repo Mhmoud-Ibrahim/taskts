@@ -8,8 +8,8 @@ const authRouter = Router();
 
 authRouter.get('/google', passport.authenticate('google', { scope: ['profile', 'email'] }));
 authRouter.get('/google/callback', 
-    passport.authenticate('google', { session: false, failureRedirect: 'https://vercel.app' }),
-    authController.googleAuthSuccess
+    passport.authenticate('google', { session: false, failureRedirect: '/loign' }),
+   authController.googleAuthSuccess
 );
 authRouter.post('/signup', signup);
 authRouter.post('/signin', signin);

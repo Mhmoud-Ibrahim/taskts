@@ -58,7 +58,7 @@ const sendTokenResponse = (user: any, res: Response) => {
         { expiresIn: '24h' }
     );
     
-    res.cookie('noorToken', token, {
+    res.cookie('taskToken', token, {
         httpOnly: true,
         secure: true, 
         sameSite: 'none',
@@ -93,7 +93,7 @@ export const signin = catchError(async (req: Request, res: Response, next: NextF
 });
 
 export const logout = catchError((req: Request, res: any) => {
-    res.clearCookie('noorToken', {
+    res.clearCookie('taskToken', {
         httpOnly: true,
         secure: true,
         sameSite: 'none',
